@@ -4,7 +4,6 @@ let scissors = "SCISSORS";
 
 function computerPlay() { //Randomizes computer choice
     let choice = Math.floor(Math.random() * (3) + 1);
-    let computerAnswer = "";
     switch (choice){
         case 1:
             computerAnswer = rock;
@@ -23,47 +22,89 @@ function computerPlay() { //Randomizes computer choice
 
 function playerPlay() { //Gets Player Prompt
     let playerChoice = prompt("Enter Rock, Paper, or Scissors!")
-    return (playerChoice.toUpperCase());
-}
-
-function playRound() { //Plays the round. You need to add Computer choice and make all console.log return instead.
-    let playerSelection = playerPlay();
-    let computerSelection = computerPlay();
-
-    if (playerSelection === "ROCK" && computerSelection === "ROCK") {
-        console.log("It's a Tie!");
-    }
-    else if (playerSelection === "PAPER" && computerSelection === "PAPER") {
-        console.log("It's a Tie!");
-    }
-    else if (playerSelection === "SCISSORS" && computerSelection === "SCISSORS") {
-        console.log("It's a Tie!");
-    }
-    else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
-        console.log("You Lose!");
-    }
-    else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
-        console.log("You Lose!");
-    }
-    else if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
-        console.log("You Lose!");
-    }
-    else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
-        console.log("You Win!");
-    }
-    else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
-        console.log("You Win!");
-    }
-    else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
-        console.log("You Win!");
-    }
-}
-
-/*function game() { // Needs to reach 5 rounds. Keep count of score, and print the result.
-    for (i = 0; i <= 5; i++)
+    let answer = playerChoice.toUpperCase(); //Makes it all uppercase so there is no problem if user inputs different cases.
+    console.log(answer)
+    if (answer != "ROCK" && answer != "PAPER" && answer != "SCISSORS") // Checks if its Rock, Paper, or Scissors.
     {
-        playRound();
-        if
+        console.log("Please enter Rock, Paper, or Scissors.")
+        playerPlay();
     }
+    return answer;
+}
 
-}*/
+function playRound(playerPlay, computerPlay) { // Plays the round. 
+    let resultTie = (1);
+    let resultLose = (2);
+    let resultWin = (3);
+
+    if (playerPlay === "ROCK" && computerPlay === "ROCK") {
+        return (resultTie); 
+    }
+    else if (playerPlay === "PAPER" && computerPlay === "PAPER") {
+        return (resultTie);
+    }
+    else if (playerPlay === "SCISSORS" && computerPlay === "SCISSORS") {
+        return (resultTie);
+    }
+    else if (playerPlay === "ROCK" && computerPlay === "PAPER") {
+        return (resultLose);
+    }
+    else if (playerPlay === "PAPER" && computerPlay === "SCISSORS") {
+        return (resultLose);
+    }
+    else if (playerPlay === "SCISSORS" && computerPlay === "ROCK") {
+        return (resultLose);
+    }
+    else if (playerPlay === "ROCK" && computerPlay === "SCISSORS") {
+        return (resultWin);
+    }
+    else if (playerPlay === "PAPER" && computerPlay === "ROCK") {
+        return (resultWin);
+    }
+    else if (playerPlay === "SCISSORS" && computerPlay === "PAPER") {
+        return (resultWin);
+    }
+}
+
+function game () { 
+    let Tie = ("It's a Tie! ");
+    let Lose = ("You Lose! ");
+    let Win = ("You Win! ");
+    let playerScore = 0;
+    let computerScore = 0;
+    let totalScore = ("");
+    let result = ("");
+    //Needs to reach player or pc score to 5
+    while (playerScore < 5 && computerScore < 5)
+    {
+        let playerSelection = playerPlay();
+        let computerSelection = computerPlay();
+        let play = playRound(playerSelection, computerSelection);
+        switch (play) {
+            case 1:
+                result = Tie + computerSelection + " is equal to " + playerSelection + "!";
+                totalScore = "Player - " + playerScore + " || " + "Computer - " + computerScore;
+                break;
+            case 2:
+                result = Lose + computerSelection + " beats " + playerSelection + "!";
+                computerScore++;
+                totalScore = "Player - " + playerScore + " || " + "Computer - " + computerScore;
+                break;
+            case 3:
+                result = Win + playerSelection + " beats " + computerSelection + "!";
+                playerScore++;
+                totalScore = "Player - " + playerScore + " || " + "Computer - " + computerScore;
+                break;
+        }
+        console.log(result)
+        console.log(totalScore)
+    }
+    if (playerScore == 5)
+    {
+        console.log("YOU WIN!")
+    }
+    if (computerScore == 5)
+    {
+        console.log("YOU LOSE! TRY AGAIN?")
+    }
+}
